@@ -10,9 +10,9 @@ class PromotionsPage extends React.Component {
 
   componentDidMount() {
     API.getPromotions()
-      .then(res => {
+      .then(response => {
         let data = [];
-        res.data.forEach(promo => {
+        response.data.forEach(promo => {
           data.push({
             PromotionText: promo.PromotionText,
             BeaconTag: promo.BeaconTag,
