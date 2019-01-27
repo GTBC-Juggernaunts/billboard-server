@@ -1,11 +1,20 @@
 {
-  "name": "project3-server",
+  "name": "project3",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "express": "^4.16.4",
+    "griddle-react": "^1.13.1",
+    "mongoose": "^5.4.5",
+    "now": "^13.0.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "2.1.3"
+    "react-navigation": "^3.0.9",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.3",
+    "shuffle-array": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
