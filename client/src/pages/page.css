@@ -1,0 +1,49 @@
+.mainContainer {
+  min-height: calc(100vh - 47px);
+}
+
+.kpiContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 0 30px;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+.wide-container {
+  padding: 20px 20px 20px 70px;
+}
+
+.picker__date-display {
+  background-color: #424242;
+}
+
+.picker__weekday-display {
+  background-color: #616161;
+}
+
+.datepicker-date-display {
+  background-color: #424242;
+}
+
+.datepicker-table td.is-selected {
+  background-color: #607d8b;
+}
+
+.picker__day--today {
+  color: #00b8d4 !important;
+}
+
+.picker__day--selected{
+  background-color: #607d8b !important;
+}
+
+.datepicker-cancel {
+  color: #607d8b;
+}
+
+.datepicker-done {
+  color: #607d8b;
+}
