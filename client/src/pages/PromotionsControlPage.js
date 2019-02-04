@@ -25,21 +25,26 @@ class PromotionsControlPage extends React.Component {
     const promotionArray = this.state.promotionData;
     API.getRedemptionCountByPromo()
       .then(res => {
-        const topPromoId = res.data[0]._id;
-        console.log("topPromoId", topPromoId);
-        let topPromo = "";
-        const topPromoCount = res.data[0].count;
-        promotionArray.forEach(promotion => {
-          if(promotion._id === topPromoId) {
-            console.log("match found", promotion);
-            topPromo = promotion.PromotionText;
-          }
-        });
-        console.log("top promotion", topPromo, topPromoCount);
-        this.setState({
-          topPromo,
-          topPromoCount
-        })
+        if ( res.data[0]) {
+          const topPromoId = res.data[0]._id;
+          console.log("topPromoId", topPromoId);
+          let topPromo = "";
+          const topPromoCount = res.data[0].count;
+          promotionArray.forEach(promotion => {
+            if (promotion._id === topPromoId) {
+              console.log("match found", promotion);
+              topPromo = promotion.PromotionText;
+            }
+          });
+          console.log("top promotion", topPromo, topPromoCount);
+          this.setState({
+            topPromo,
+            topPromoCount
+          })
+        }
+        else {
+          console.log("no redemptions in system")
+        }
       });
   };
 
