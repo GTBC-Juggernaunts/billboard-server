@@ -5,30 +5,68 @@ import API from "../utils/API";
 
 class DashboardPage extends React.Component {
   state={
-    data:[]
+    promotionsData:[],
+    usersData:[],
+    redemptionsData:[]
   };
 
-  reloadData = () => {
+  getPromotions = () => {
     API.getPromotions()
       .then(res => {
-        let data = [];
+        let promotionsData = [];
         res.data.forEach(promo => {
-          data.push({
+          promotionsData.push({
             PromotionText: promo.PromotionText,
             BeaconTag: promo.BeaconTag,
             PreferenceGroup: promo.PreferenceGroup,
             ExpirationDate: promo.ExpirationDate
           })
         });
-        console.log("data", data);
+        console.log("promotionsData", promotionsData);
         this.setState({
-          data
+          promotionsData
         })
       })
   };
 
+  getUsers = () => {
+    API.getUsers()
+      .then(res => {
+        let usersData = [];
+        res.data.forEach(user => {
+          usersData.push({
+            Username: user.Username
+          })
+        });
+        console.log("usersData", usersData);
+        this.setState({
+          usersData
+        })
+      })
+  };
+
+  getRedemptions = () => {
+    API.getRedemptions()
+      .then(res => {
+        let redemptionsData = [];
+        res.data.forEach(redemption => {
+          redemptionsData.push({
+            id: redemption._id
+          })
+        });
+        console.log("redemptions", redemptionsData);
+        this.setState({
+          redemptionsData
+        })
+      })
+  }
+
+
+
   componentDidMount() {
-    this.reloadData();
+    this.getPromotions();
+    this.getUsers();
+    this.getRedemptions();
   }
 
 
@@ -43,23 +81,23 @@ class DashboardPage extends React.Component {
                 cardTextcolor={"blue-grey-text text-darken-4"}
                 title={"Total Promotions"}
                 subtitle={"Active Records Only"}
-                kpi={this.state.data.length}
+                kpi={this.state.promotionsData.length}
                 kpiColor={"deep-orange-text text-darken-2"}
               />
               <KPI
                 cardBackgroundColor={"white"}
                 cardTextcolor={"blue-grey-text text-darken-4"}
                 title={"Total Users"}
-                subtitle={"hardcoded - bs"}
-                kpi={3}
+                subtitle={"By unique username"}
+                kpi={this.state.usersData.length}
                 kpiColor={"cyan-text"}
               />
               <KPI
                 cardBackgroundColor={"white"}
                 cardTextColor={"blue-grey-text text-darken-4"}
                 title={"Promotions Redeemed"}
-                subtitle={"hardcoded - bs"}
-                kpi={16}
+                subtitle={"We have your personal data"}
+                kpi={this.state.redemptionsData.length}
                 kpiColor={"indigo-text"}
               />
             </div>
