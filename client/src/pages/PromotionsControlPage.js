@@ -168,46 +168,46 @@ class PromotionsControlPage extends React.Component {
               </div>
               <div className="col s6 l9">
                 <div className="row">
-                <KPI
-                  cardBackgroundColor="white"
-                  cardTextcolor="blue-grey-text text-darken-4"
-                  title="Total Active Promotions"
-                  kpi={this.state.promotionData.length}
-                  kpiColor="deep-orange-text text-darken-2"
-                />
-                <KPI
-                  cardBackgroundColor="white"
-                  cardTextcolor="blue-grey-text text-darken-4"
-                  title="Most Redeemed Promotion"
-                  kpi={this.state.topPromoCount}
-                  subtitle={this.state.topPromo}
-                  kpiColor="cyan-text"
-                />
-                <KPI
-                  cardBackgroundColor="white"
-                  cardTextcolor="blue-grey-text text-darken-4"
-                  title="Top Category by Promo Ct."
-                  kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
-                  subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No promotions"}
-                  kpiColor="indigo-text"
-                />
+                  <KPI
+                    cardBackgroundColor="white"
+                    cardTextcolor="blue-grey-text text-darken-4"
+                    title="Total Active Promotions"
+                    kpi={this.state.promotionData.length}
+                    kpiColor="deep-orange-text text-darken-2"
+                  />
+                  <KPI
+                    cardBackgroundColor="white"
+                    cardTextcolor="blue-grey-text text-darken-4"
+                    title="Most Redeemed Promotion"
+                    kpi={this.state.topPromoCount}
+                    subtitle={this.state.topPromo}
+                    kpiColor="cyan-text"
+                  />
+                  <KPI
+                    cardBackgroundColor="white"
+                    cardTextcolor="blue-grey-text text-darken-4"
+                    title="Top Category by Promo Ct."
+                    kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
+                    subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No promotions"}
+                    kpiColor="indigo-text"
+                  />
                 </div>
                 <div className="row">
-                <div className="col s12">
-                  <div className="card">
-                    <h5>Count of Promotions by Preference Grouping</h5>
-                  <BarChart
-                    width={1200}
-                    height={271}
-                    data={this.state.categoryData}
-                    onClick={function(event) {console.log(event)}}
-                  >
-                    <XAxis dataKey="PreferenceGroup" />
-                    <YAxis dataKey="count" />
-                    <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
-                  </BarChart>
-                </div>
-                </div>
+                  <div className="col s12">
+                    <div className="card">
+                      <h5>Count of Promotions by Preference Grouping</h5>
+                      <BarChart
+                        width={1200}
+                        height={271}
+                        data={this.state.categoryData}
+                        onClick={function(event) {console.log(event)}}
+                      >
+                        <XAxis dataKey="PreferenceGroup" />
+                        <YAxis dataKey="count" />
+                        <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
+                      </BarChart>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
