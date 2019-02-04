@@ -18,5 +18,8 @@ export default {
   },
   getRedemptionCountByPromo: function() {
     return axios.get("api/metrics/redxpr");
+  },
+  getPromotionCountByPreferenceGroup: function() {
+    return axios.get("api/metrics/prxprg");
   }
 }

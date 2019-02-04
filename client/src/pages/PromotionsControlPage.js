@@ -3,45 +3,110 @@ import PromotionForm from "../components/form/PromotionForm";
 import './page.css';
 import API from "../utils/API"
 import Table from "../components/table/Table";
+import KPI from "../components/KPI/KPI";
 import moment from "moment";
-import M from "materialize-css/dist/js/materialize.min.js";
-import options from "materialize-css/dist/js/materialize.min.js";
 
 
 class PromotionsControlPage extends React.Component {
   state = {
-    data:[],
+    promotionData:[],
+    redemptionsData:[],
+    categoryData:[],
+    topPromo: "",
+    topPromoCount: 0,
+    topUser: "",
     PromotionText: "",
-    BeaconTag: "",
+    BeaconTag: "mint",
     PreferenceGroup: "",
     ExpirationDate: "",
   };
 
-  reloadData = () => {
+  findMostRedeemedPromo = () => {
+    const promotionArray = this.state.promotionData;
+    API.getRedemptionCountByPromo()
+      .then(res => {
+        const topPromoId = res.data[0]._id;
+        console.log("topPromoId", topPromoId);
+        let topPromo = "";
+        const topPromoCount = res.data[0].count;
+        promotionArray.forEach(promotion => {
+          if(promotion._id === topPromoId) {
+            console.log("match found", promotion);
+            topPromo = promotion.PromotionText;
+          }
+        });
+        console.log("top promotion", topPromo, topPromoCount);
+        this.setState({
+          topPromo,
+          topPromoCount
+        })
+      });
+  };
+
+  getPromotionCountByPreference = () => {
+    API.getPromotionCountByPreferenceGroup()
+      .then(res => {
+        let categoryData = [];
+        res.data.forEach(category => {
+          categoryData.push({
+            PreferenceGroup: category._id,
+            count: category.count
+          })
+        });
+        console.log("category frequency", categoryData);
+        this.setState({
+          categoryData
+        })
+      })
+  };
+
+  getRedemptions = () => {
+    API.getRedemptions()
+      .then(res => {
+        let redemptionsData = [];
+        res.data.forEach(redemption => {
+          redemptionsData.push({
+            id: redemption._id,
+            PromotionId: redemption.PromotionId,
+            UserId: redemption.UserId
+          })
+        });
+        console.log("redemptions", redemptionsData);
+        this.setState({
+          redemptionsData
+        })
+      })
+  };
+
+  getPromotions = (callback) => {
     API.getPromotions()
       .then(res => {
-        let data = [];
+        let promotionData = [];
         res.data.forEach(promo => {
-          data.push({
+          promotionData.push({
+            _id: promo._id,
             PromotionText: promo.PromotionText,
             BeaconTag: promo.BeaconTag,
             PreferenceGroup: promo.PreferenceGroup,
             ExpirationDate: moment(promo.ExpirationDate).format("dddd, MMMM Do YYYY")
           })
         });
-
         this.setState({
-          data
-        })
+          promotionData
+        });
+        console.log("promotionData", this.state.promotionData);
+        callback()
       })
+  };
+
+  reloadData = () => {
+    this.getPromotions(this.findMostRedeemedPromo);
+    this.getRedemptions();
+    this.getPromotionCountByPreference();
   };
 
   componentDidMount() {
     this.reloadData();
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.datepicker');
-      var instances = M.Datepicker.init(elems, options);
-    });
   }
 
   handleInputChange = event => {
@@ -69,7 +134,7 @@ class PromotionsControlPage extends React.Component {
       .then(
         this.setState({
           PromotionText: "",
-          BeaconTag: "",
+          BeaconTag: "mint",
           PreferenceGroup: "",
           ExpirationDate: "",
         }))
@@ -88,7 +153,7 @@ class PromotionsControlPage extends React.Component {
       <div className="mainContainer">
         <div className="row">
             <div className="wide-container">
-              <div className="col s6">
+              <div className="col s6 l3">
                 <PromotionForm
                   handleInputChange={this.handleInputChange}
                   handleSubmit={this.handleSubmit}
@@ -98,16 +163,39 @@ class PromotionsControlPage extends React.Component {
                   ExpirationDate={this.state.ExpirationDate}
                 />
               </div>
-              <div className="col s6">
-                Something to go here
+              <div className="col s6 l9">
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Total Active Promotions"
+                  subtitle="Filler Text Because Lazy"
+                  kpi={this.state.promotionData.length}
+                  kpiColor="deep-orange-text text-darken-2"
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Most Redeemed Promotion"
+                  kpi={this.state.topPromoCount}
+                  subtitle={this.state.topPromo}
+                  kpiColor="cyan-text"
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Top Category by Promo Ct."
+                  kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
+                  subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No promotions"}
+                  kpiColor="indigo-text"
+                />
               </div>
-          </div>
+            </div>
         </div>
         <div className="row">
           <div className="wide-container">
             <div className="col s12">
               <Table
-                data={this.state.data}
+                data={this.state.promotionData}
                 columns={this.columns}
                 defaultPageSize={8}
               />

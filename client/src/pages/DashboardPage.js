@@ -59,7 +59,7 @@ class DashboardPage extends React.Component {
           redemptionsData
         })
       })
-  }
+  };
 
 
 

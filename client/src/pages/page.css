@@ -47,3 +47,7 @@
 .datepicker-done {
   color: #607d8b;
 }
+
+.card {
+  margin-top: 0 !important;
+}

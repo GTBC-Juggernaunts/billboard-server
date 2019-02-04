@@ -8,4 +8,9 @@ router
   .route('/redxpr')
   .get(metricsController.getRedemptionCountByPromo);
 
+router
+  // get count of promotions by category
+  .route('/prxprg')
+  .get(metricsController.getPromotionsByPreferenceGrp);
+
 module.exports = router;
