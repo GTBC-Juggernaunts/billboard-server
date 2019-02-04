@@ -41,6 +41,10 @@ const UserSchema = new Schema({
       ref: Promotion
     }
   ]
+},{
+  timestamps: {
+    createdAt: 'createdAt'
+  }
 });
 
 const User = mongoose.model("User", UserSchema);
