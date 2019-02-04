@@ -16,4 +16,7 @@ export default {
   saveUser: function(user) {
     return axios.post("/api/user", user);
   },
+  getRedemptionCountByPromo: function() {
+    return axios.get("api/metrics/redxpr");
+  }
 }
