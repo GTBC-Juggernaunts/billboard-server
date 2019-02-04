@@ -10,21 +10,25 @@ import {Bar, BarChart, XAxis, YAxis} from "recharts";
 
 class UsersControlPage extends React.Component {
   state = {
-    data:[],
+    userData:[],
+    topUser:"",
+    topUserCount: 0,
+    categoryData: [],
     Username: "",
     Name: "",
     Email: "",
-    Phone: Number,
+    Phone: "",
     PreferenceGroup: ""
   };
 
-  reloadData = () => {
+  getUsers = (callback) => {
     API.getUsers()
       .then(res => {
         console.log(res);
-        let data = [];
+        let userData = [];
         res.data.forEach(user => {
-          data.push({
+          userData.push({
+            id: user._id,
             Username: user.Username,
             Name: user.Name,
             Email: user.Email,
@@ -32,11 +36,60 @@ class UsersControlPage extends React.Component {
             PreferenceGroup: user.PreferenceGroup
           })
         });
-
         this.setState({
-          data
-        })
+          userData
+        });
+        callback()
       })
+  };
+
+  getUsersCountByPreference = () => {
+    API.getUserCountByPreferenceGroup()
+      .then(res => {
+        let categoryData = [];
+        res.data.forEach(category => {
+          categoryData.push({
+            PreferenceGroup: category._id,
+            count: category.count
+          })
+        });
+        this.setState({
+          categoryData
+        });
+        console.log("category state", this.state)
+      })
+  };
+
+  findMostRedeemedUser = () => {
+    const userArray = this.state.userData;
+    API.getRedemptionCountByUser()
+      .then(res => {
+        if ( res.data[0] ) {
+          const topUserId = res.data[0]._id;
+          let topUser = "";
+          const topUserCount = res.data[0].count;
+          userArray.forEach(user => {
+            console.log(user);
+            if (user.id === topUserId) {
+              console.log("match found", user);
+              topUser = user.Name
+            }
+          });
+          this.setState({
+            topUser,
+            topUserCount
+          });
+          console.log(this.state)
+        }
+        else {
+          console.log("no redemptions in system")
+        }
+      })
+  };
+
+  reloadData = () => {
+    this.getUsers(this.findMostRedeemedUser);
+    this.getUsersCountByPreference();
   };
 
   componentDidMount() {
@@ -107,22 +160,24 @@ class UsersControlPage extends React.Component {
                 <KPI
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
-                  title="Total Active Promotions"
-                  kpi={12}
+                  title="Total Users"
+                  kpi={this.state.userData.length}
                   kpiColor="deep-orange-text text-darken-2"
                 />
                 <KPI
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
-                  title="Most Redeemed Promotion"
-                  kpi={14}
+                  title="Most Redeemed Promotions"
+                  kpi={this.state.topUserCount}
+                  subtitle={this.state.topUser}
                   kpiColor="cyan-text"
                 />
                 <KPI
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
-                  title="Top Category by Promo Ct."
-                  kpi={2}
+                  title="Users in Top Preference"
+                  kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
+                  subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No user data"}
                   kpiColor="indigo-text"
                 />
               </div>
@@ -141,7 +196,7 @@ class UsersControlPage extends React.Component {
           <div className="wide-container">
             <div className="col s12">
               <Table
-                data={this.state.data}
+                data={this.state.userData}
                 columns={this.columns}
                 defaultPageSize={8}
               />
