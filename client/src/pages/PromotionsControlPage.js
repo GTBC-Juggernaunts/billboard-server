@@ -5,7 +5,7 @@ import API from "../utils/API"
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
 import moment from "moment";
-
+import {BarChart, XAxis, YAxis, Bar} from 'recharts';
 
 class PromotionsControlPage extends React.Component {
   state = {
@@ -151,6 +151,9 @@ class PromotionsControlPage extends React.Component {
   render() {
     return(
       <div className="mainContainer">
+        <div className="title">
+          <span>Promotions Control Panel</span>
+        </div>
         <div className="row">
             <div className="wide-container">
               <div className="col s6 l3">
@@ -164,11 +167,11 @@ class PromotionsControlPage extends React.Component {
                 />
               </div>
               <div className="col s6 l9">
+                <div className="row">
                 <KPI
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
                   title="Total Active Promotions"
-                  subtitle="Filler Text Because Lazy"
                   kpi={this.state.promotionData.length}
                   kpiColor="deep-orange-text text-darken-2"
                 />
@@ -188,6 +191,24 @@ class PromotionsControlPage extends React.Component {
                   subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No promotions"}
                   kpiColor="indigo-text"
                 />
+                </div>
+                <div className="row">
+                <div className="col s12">
+                  <div className="card">
+                    <h5>Count of Promotions by Preference Grouping</h5>
+                  <BarChart
+                    width={1200}
+                    height={271}
+                    data={this.state.categoryData}
+                    onClick={function(event) {console.log(event)}}
+                  >
+                    <XAxis dataKey="PreferenceGroup" />
+                    <YAxis dataKey="count" />
+                    <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
+                  </BarChart>
+                </div>
+                </div>
+                </div>
               </div>
             </div>
         </div>

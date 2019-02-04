@@ -21,6 +21,7 @@
   margin-left: 0;
 }
 
-h5 {
-
+.dropdown-content li>span {
+  color: #00b8d4;
 }
+
