@@ -27,5 +27,8 @@ export default {
   },
   getUserCountByPreferenceGroup: function() {
     return axios.get("api/metrics/usrxprg")
+  },
+  getUsersByCreateDate: function() {
+    return axios.get("api/metrics/usrxdate")
   }
 }

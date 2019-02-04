@@ -51,5 +51,26 @@ module.exports =  {
         res.json(dbMetric)
       })
       .catch(err => res.status(422).json(err))
+  },
+
+  getUsersByDayCreated: function(req, res) {
+    models.User
+      .aggregate([
+        { "$group": {
+            "_id": {
+              "$dateToString": {
+                "format": "%Y-%m-%d",
+                "date": "$createdAt"
+              }
+            },
+            "count": { "$sum": 1 }
+          }}
+      ])
+      .sort({ _id: 1 })
+      .then(dbMetric => {
+        console.log(dbMetric);
+        res.json(dbMetric)
+      })
+      .catch(err => res.status(422).json(err))
   }
 };

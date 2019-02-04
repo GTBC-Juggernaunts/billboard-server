@@ -4,7 +4,7 @@ import UserForm from "../components/form/UserForm";
 import './page.css';
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
-import {Bar, BarChart, XAxis, YAxis} from "recharts";
+import {AreaChart, XAxis, YAxis, Area} from "recharts";
 
 
 
@@ -13,6 +13,7 @@ class UsersControlPage extends React.Component {
     userData:[],
     topUser:"",
     topUserCount: 0,
+    userDateData:[],
     categoryData: [],
     Username: "",
     Name: "",
@@ -87,9 +88,34 @@ class UsersControlPage extends React.Component {
       })
   };
 
+  getUserByCreationDate = ()=> {
+    API.getUsersByCreateDate()
+      .then(res => {
+        if ( res.data[0]) {
+          let userDateData = [];
+          let i = 0;
+          res.data.forEach(day => {
+            i += day.count;
+            userDateData.push({
+              day: day._id,
+              users: i
+            })
+          });
+          this.setState({
+            userDateData
+          });
+          console.log("userdatedatamachahumbo", this.state.userDateData)
+        }
+        else {
+          console.log("no users in system")
+        }
+      })
+  };
+
   reloadData = () => {
     this.getUsers(this.findMostRedeemedUser);
     this.getUsersCountByPreference();
+    this.getUserByCreationDate();
   };
 
   componentDidMount() {
@@ -185,7 +211,15 @@ class UsersControlPage extends React.Component {
                 <div className="col s12">
                   <div className="card">
                     <h5>Count of Users Over Time</h5>
-
+                    <AreaChart
+                      width={1200}
+                      height={355}
+                      data={this.state.userDateData}
+                    >
+                      <XAxis dataKey="day"/>
+                      <YAxis />
+                      <Area type="monotone" dataKey="users" stroke="#00b8d4" fill="#607d8b" />
+                    </AreaChart>
                   </div>
                 </div>
               </div>

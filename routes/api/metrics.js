@@ -23,4 +23,9 @@ router
   .route('/usrxprg')
   .get(metricsController.getUsersByPreferenceGrp);
 
+router
+  //get users aggregated by the day they were created
+  .route('/usrxdate')
+  .get(metricsController.getUsersByDayCreated);
+
 module.exports = router;
