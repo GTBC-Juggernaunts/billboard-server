@@ -21,5 +21,11 @@ export default {
   },
   getPromotionCountByPreferenceGroup: function() {
     return axios.get("api/metrics/prxprg");
+  },
+  getRedemptionCountByUser: function() {
+    return axios.get("api/metrics/redxusr")
+  },
+  getUserCountByPreferenceGroup: function() {
+    return axios.get("api/metrics/usrxprg")
   }
 }

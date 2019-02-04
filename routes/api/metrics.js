@@ -13,4 +13,14 @@ router
   .route('/prxprg')
   .get(metricsController.getPromotionsByPreferenceGrp);
 
+router
+  // get count of redemptions by user id
+  .route('/redxusr')
+  .get(metricsController.getRedemptionCountByUser);
+
+router
+  //get count of users by preference group
+  .route('/usrxprg')
+  .get(metricsController.getUsersByPreferenceGrp);
+
 module.exports = router;
