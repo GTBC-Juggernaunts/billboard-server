@@ -3,6 +3,8 @@ import API from "../utils/API";
 import UserForm from "../components/form/UserForm";
 import './page.css';
 import Table from "../components/table/Table";
+import KPI from "../components/KPI/KPI";
+import {Bar, BarChart, XAxis, YAxis} from "recharts";
 
 
 
@@ -12,7 +14,7 @@ class UsersControlPage extends React.Component {
     Username: "",
     Name: "",
     Email: "",
-    Phone: 0,
+    Phone: Number,
     PreferenceGroup: ""
   };
 
@@ -84,9 +86,12 @@ class UsersControlPage extends React.Component {
   render() {
     return(
       <div className="mainContainer">
+        <div className="title">
+          <span>Users Control Panel</span>
+        </div>
         <div className="row">
           <div className="wide-container">
-            <div className="col s6">
+            <div className="col s6 l3">
               <UserForm
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
@@ -97,8 +102,38 @@ class UsersControlPage extends React.Component {
                 PreferenceGroup={this.state.PreferenceGroup}
               />
             </div>
-            <div className="col s6">
-              Something to go here
+            <div className="col s6 l9">
+              <div className="row">
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Total Active Promotions"
+                  kpi={12}
+                  kpiColor="deep-orange-text text-darken-2"
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Most Redeemed Promotion"
+                  kpi={14}
+                  kpiColor="cyan-text"
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Top Category by Promo Ct."
+                  kpi={2}
+                  kpiColor="indigo-text"
+                />
+              </div>
+              <div className="row">
+                <div className="col s12">
+                  <div className="card">
+                    <h5>Count of Users Over Time</h5>
+
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
