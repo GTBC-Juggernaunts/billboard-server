@@ -15,10 +15,13 @@ router
   .route('/:id')
   .delete(promotionController.remove);
 
-//
+// /api/promo/redeem
 
 router
-  .route('redeem')
-  .post(promotionController.redeemPromotion);
+  .route('/redeem')
+  //To redeem, post body must contain the below format
+  //{ PromotionId: <mongo promo _id>, UserId: <mongo user _id> }
+  .post(promotionController.redeemPromotion)
+  .get(promotionController.findAllRedemptions);
 
 module.exports = router;

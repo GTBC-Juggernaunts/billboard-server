@@ -18,13 +18,24 @@ module.exports =  {
       .catch(err => res.status(422).json(err));
   },
   redeemPromotion: function(req, res) {
-    models.Promotion
+    models.Redemption
       .create(req.body)
       .then(()=> {
         models.User.findOneAndUpdate({ _id: req.body.UserId}, {$push : { CouponsRedeemed: req.body.PromotionId }}, { new: true })
       })
-      .then(res.status(202))
+      .then(dbRedeem => {
+        res.status(202).json(dbRedeem)
+      })
       .catch(err => res.status(422).json(err));
+  },
+  findAllRedemptions: function(req,res) {
+    models.Redemption
+      .find()
+      .then(dbRedeem => {
+        console.log(dbRedeem);
+        res.json(dbRedeem)
+      })
+      .catch(err => res.status(422).json(err))
   },
   create: function(req, res) {
     models.Promotion
