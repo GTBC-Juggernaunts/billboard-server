@@ -5,6 +5,7 @@ import './App.css';
 import PromotionsControlPage from "./pages/PromotionsControlPage";
 import DashboardPage from "./pages/DashboardPage"
 import UsersControlPage from "./pages/UsersControlPage"
+import ContactUs from "./pages/ContactUs"
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path ="/dashboard" component={DashboardPage} />
               <Route exact path ="/promotions" component={PromotionsControlPage} />
               <Route exact path ="/users" component={UsersControlPage} />
+              <Route exact path ="/contact" component={ContactUs} />
             </Switch>
           </div>
 

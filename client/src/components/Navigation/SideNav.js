@@ -33,6 +33,10 @@ class SideNav extends React.Component {
             <div className="divider"></div>
           </li>
           <li><NavLink to="/users">Users Control Panel</NavLink></li>
+          <li>
+            <div className="divider"></div>
+          </li>
+          <li><NavLink to="/contact">Contact Us</NavLink></li>
         </ul>
         <div className="collapsed-sidebar">
           <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
