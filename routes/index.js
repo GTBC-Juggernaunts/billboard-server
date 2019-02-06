@@ -6,7 +6,7 @@ const path = require('path');
 router.use("/api", apiRoutes);
 
 
-router.route.get("/*", function(req, res) {
+router.use("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
