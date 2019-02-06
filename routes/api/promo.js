@@ -13,7 +13,8 @@ router
 
 router
   .route('/:id')
-  .delete(promotionController.remove);
+  .delete(promotionController.remove)
+  .get(promotionController.findPrmotionsByUser);
 
 // /api/promo/redeem
 

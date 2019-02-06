@@ -49,5 +49,13 @@ module.exports =  {
       .then(dbPromo => dbPromo.remove())
       .then(dbPromo => res.json(dbPromo))
       .catch(err => res.status(422).json(err));
+  },
+  findPrmotionsByUser: function(req, res) {
+    models.User
+        .find({_id: req.params.id})
+        .populate('CouponsRedeemed')
+        .then(dbUser => {
+          console.log(dbUser)
+        })
   }
 };
