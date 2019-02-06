@@ -2,8 +2,10 @@ const models = require('../models');
 
 module.exports =  {
   findUserById: function(req, res) {
+    console.log("finding user by id", req.params.id);
     models.User
-      .findOne(req.params.id)
+      .find({_id: req.params.id})
+      .populate("CouponsRedeemed")
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   },
