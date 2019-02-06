@@ -4,7 +4,7 @@ import UserForm from "../components/form/UserForm";
 import './page.css';
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
-import {AreaChart, XAxis, YAxis, Area} from "recharts";
+import {AreaChart, XAxis, YAxis, Area, ResponsiveContainer} from "recharts";
 
 
 
@@ -133,7 +133,14 @@ class UsersControlPage extends React.Component {
     event.preventDefault();
     console.log('submitting state');
     console.log(this.state);
-    API.saveUser(this.state)
+    const newUser = {
+      Username: this.state.Username,
+      Name: this.state.Name,
+      Email: this.state.Email,
+      Phone: this.state.Phone,
+      PreferenceGroup: this.state.PreferenceGroup
+    };
+    API.saveUser(newUser)
       .then(res => {
         console.log("axiosresponse",res);
         if(res.status === 200) {
@@ -211,15 +218,15 @@ class UsersControlPage extends React.Component {
                 <div className="col s12">
                   <div className="card">
                     <h5>Count of Users Over Time</h5>
-                    <AreaChart
-                      width={1200}
-                      height={355}
-                      data={this.state.userDateData}
-                    >
-                      <XAxis dataKey="day"/>
-                      <YAxis />
-                      <Area type="monotone" dataKey="users" stroke="#00b8d4" fill="#607d8b" />
-                    </AreaChart>
+                    <ResponsiveContainer height={370} width="95%">
+                      <AreaChart
+                        data={this.state.userDateData}
+                      >
+                        <XAxis dataKey="day"/>
+                        <YAxis />
+                        <Area type="monotone" dataKey="users" stroke="#00b8d4" fill="#607d8b" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>

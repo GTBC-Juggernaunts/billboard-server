@@ -5,7 +5,7 @@ import API from "../utils/API"
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
 import moment from "moment";
-import {BarChart, XAxis, YAxis, Bar} from 'recharts';
+import {ResponsiveContainer, BarChart, XAxis, YAxis, Bar} from 'recharts';
 
 class PromotionsControlPage extends React.Component {
   state = {
@@ -126,7 +126,13 @@ class PromotionsControlPage extends React.Component {
     event.preventDefault();
     console.log('submitting state');
     console.log(this.state);
-    API.savePromotion(this.state)
+    const newPromo = {
+      PromotionText: this.state.PromotionText,
+      BeaconTag: this.state.BeaconTag,
+      PreferenceGroup: this.state.PreferenceGroup,
+      ExpirationDate: this.state.ExpirationDate,
+    };
+    API.savePromotion(newPromo)
       .then(res => {
         console.log("axiosresponse",res);
         if(res.status === 200) {
@@ -201,16 +207,16 @@ class PromotionsControlPage extends React.Component {
                   <div className="col s12">
                     <div className="card">
                       <h5>Count of Promotions by Preference Grouping</h5>
-                      <BarChart
-                        width={1200}
-                        height={271}
-                        data={this.state.categoryData}
-                        onClick={function(event) {console.log(event)}}
-                      >
-                        <XAxis dataKey="PreferenceGroup" />
-                        <YAxis dataKey="count" />
-                        <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
-                      </BarChart>
+                      <ResponsiveContainer height={286} width="95%">
+                        <BarChart
+                          data={this.state.categoryData}
+                          onClick={function(event) {console.log(event)}}
+                        >
+                          <XAxis dataKey="PreferenceGroup" />
+                          <YAxis dataKey="count" />
+                          <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
                 </div>
