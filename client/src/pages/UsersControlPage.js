@@ -238,7 +238,7 @@ class UsersControlPage extends React.Component {
                       >
                         <XAxis dataKey="day"/>
                         <YAxis />
-                        <Area type="monotone" dataKey="users" stroke="#00b8d4" fill="#607d8b" />
+                        <Area type="monotone" dataKey="users" stroke="#7AA095" fill="#717C89" />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
