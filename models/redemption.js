@@ -18,7 +18,6 @@ const RedemptionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: User
   }
-
 });
 
 const Redemption = mongoose.model("Redemption", RedemptionSchema);

@@ -2,6 +2,7 @@ const models = require('../models');
 
 module.exports =  {
   findAllPromos: function(req, res) {
+    console.log("Finding all promotions");
     models.Promotion
       .find()
       .sort({ExpirationDate: -1})
@@ -12,19 +13,22 @@ module.exports =  {
       .catch(err => res.status(422).json(err))
   },
   findOnePromo: function(req, res) {
+    console.log("Finding one promotion");
     models.Promotion
-      .findOne(req.query)
+      .findOne({_id: req.params.id})
       .then(dbPromo => res.json(dbPromo))
       .catch(err => res.status(422).json(err));
   },
   redeemPromotion: function(req, res) {
+    console.log("creating new redemption", req.body);
     models.Redemption
       .create(req.body)
-      .then(()=> {
-        models.User.findOneAndUpdate({ _id: req.body.UserId}, {$push : { CouponsRedeemed: req.body.PromotionId }}, { new: true })
-      })
       .then(dbRedeem => {
-        res.status(202).json(dbRedeem)
+        return models.User.findOneAndUpdate({ _id: dbRedeem.UserId}, {$push : { CouponsRedeemed: dbRedeem.PromotionId }}, { new: true });
+      })
+      .then(dbUser => {
+        console.log(dbUser);
+        res.status(202).json(dbUser)
       })
       .catch(err => res.status(422).json(err));
   },
@@ -32,7 +36,6 @@ module.exports =  {
     models.Redemption
       .find()
       .then(dbRedeem => {
-        console.log(dbRedeem);
         res.json(dbRedeem)
       })
       .catch(err => res.status(422).json(err))
@@ -50,12 +53,22 @@ module.exports =  {
       .then(dbPromo => res.json(dbPromo))
       .catch(err => res.status(422).json(err));
   },
-  findPrmotionsByUser: function(req, res) {
+  findPromotionsByUser: function(req, res) {
     models.User
-        .find({_id: req.params.id})
+        .findOne({_id: req.body.UserId})
         .populate('CouponsRedeemed')
         .then(dbUser => {
-          console.log(dbUser)
+          const CouponsRedeemed = dbUser.CouponsRedeemed;
+            return (
+              models.Promotion
+                .find({
+                  _id : {$nin: CouponsRedeemed},
+                  BeaconTag : req.body.BeaconTag
+                })
+                .then(filteredPromos => {
+                  res.json(filteredPromos)
+                })
+            )
         })
   }
 };
