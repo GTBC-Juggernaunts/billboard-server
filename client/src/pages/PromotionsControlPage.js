@@ -4,6 +4,7 @@ import './page.css';
 import API from "../utils/API"
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
+import Header from "../components/Header/Header";
 import moment from "moment";
 import {ResponsiveContainer, BarChart, XAxis, YAxis, Bar} from 'recharts';
 
@@ -161,7 +162,10 @@ class PromotionsControlPage extends React.Component {
   render() {
     return(
       <div className="mainContainer">
-
+        <Header
+          username="GTBC Storefront"
+          title="Promotions Control Panel"
+        />
         <div className="row">
             <div className="wide-container">
               <div className="col s6 l3">

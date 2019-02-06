@@ -5,6 +5,7 @@
 .kpiContainer {
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
   padding: 0 30px 0 30px;
 }
 
