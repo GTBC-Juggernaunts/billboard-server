@@ -136,7 +136,7 @@ class PromotionsControlPage extends React.Component {
       .then(res => {
         console.log("axiosresponse",res);
         if(res.status === 200) {
-          alert("New Promotion Successfully Added")
+          console.log("New Promotion Successfully Added");
         }
         else {
           alert("An error has occurred. Please check the console.")
