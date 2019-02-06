@@ -5,7 +5,7 @@ import './page.css';
 import Table from "../components/table/Table";
 import KPI from "../components/KPI/KPI";
 import {AreaChart, XAxis, YAxis, Area, ResponsiveContainer} from "recharts";
-
+import Header from "../components/Header/Header";
 
 
 class UsersControlPage extends React.Component {
@@ -172,9 +172,10 @@ class UsersControlPage extends React.Component {
   render() {
     return(
       <div className="mainContainer">
-        <div className="title">
-          <span>Users Control Panel</span>
-        </div>
+        <Header
+          username="GTBC Storefront"
+          title="Users Control Panel"
+        />
         <div className="row">
           <div className="wide-container">
             <div className="col s6 l3">

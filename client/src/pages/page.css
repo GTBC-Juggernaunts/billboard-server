@@ -13,7 +13,7 @@
 }
 
 .wide-container {
-  padding: 20px 20px 20px 70px;
+  padding: 0 20px 20px 70px;
 }
 
 .picker__date-display {
@@ -53,6 +53,11 @@
   margin-bottom: 0 !important;
 }
 
+.card .card-title {
+  font-size: 18px !important;
+  font-weight: 600;
+}
+
 .bar-chart-container {
   background-color: #ffffff;
   display: flex;
@@ -61,20 +66,13 @@
 
 h5 {
   padding-top: 5px;
-}
-
-.title span {
-  color: #01579b;
-  font-size: 32px;
-  width: 100%;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.title {
-  text-align: left;
-  padding: 20px 40px 0 100px;
-}
+
 
 .ReactTable {
+  padding-top: 20px;
   margin-bottom: 20px;
 }

@@ -1,11 +1,10 @@
 .sidebar-title{
-  background-color: #424242;
-  color: #fff;
+  background-color: #4c4b4a;
+  color: #7aa095;
   font-size:  28px;
   padding-left: 32px;
   border-bottom: 1px #ffffff solid;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
   text-align: left;
 }
 
@@ -17,7 +16,7 @@
 .collapsed-sidebar {
   min-height: 100%;
   padding-top: 10px;
-  background-color: #424242;
+  background-color: #4c4b4a;
   width: 50px;
   position: fixed;
   text-align: center;
@@ -34,7 +33,7 @@
 }
 
 .collapsed-sidebar a:hover {
-  color: #78909c
+  color: #7aa095
 }
 
 .subheader {
@@ -42,11 +41,11 @@
 }
 
 .active {
-  color: #00695c;
+  color: #7aa095;
 }
 
 #slide-out {
-  background-color: #37474f;
+  background-color: #5c5b5a;
 }
 
 .divider {

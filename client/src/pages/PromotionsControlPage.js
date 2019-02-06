@@ -119,7 +119,6 @@ class PromotionsControlPage extends React.Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state)
   };
 
   handleSubmit = event => {
@@ -162,9 +161,7 @@ class PromotionsControlPage extends React.Component {
   render() {
     return(
       <div className="mainContainer">
-        <div className="title">
-          <span>Promotions Control Panel</span>
-        </div>
+
         <div className="row">
             <div className="wide-container">
               <div className="col s6 l3">
@@ -182,7 +179,7 @@ class PromotionsControlPage extends React.Component {
                   <KPI
                     cardBackgroundColor="white"
                     cardTextcolor="blue-grey-text text-darken-4"
-                    title="Total Active Promotions"
+                    title="Total Promotions"
                     kpi={this.state.promotionData.length}
                     kpiColor="deep-orange-text text-darken-2"
                   />

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #eceff1;
+  /*background-color: #eceff1;*/
   width: 100%;
 
 }
@@ -12,7 +12,7 @@
 .sidebar-area {
   height: 100vh;
   position: fixed;
-  background-color: #424242;
+  background-color: #4c4b4a;
   color: #fff;
   width: 50px;
   z-index: 100;
@@ -20,7 +20,7 @@
 }
 
 .sidebar-text {
-  color: #607d8b;
+  color: #7aa095;
   font-size: 24px;
   writing-mode: vertical-lr;
   text-orientation: sideways;
