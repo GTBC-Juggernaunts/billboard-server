@@ -217,7 +217,7 @@ class PromotionsControlPage extends React.Component {
                         >
                           <XAxis dataKey="PreferenceGroup" />
                           <YAxis dataKey="count" />
-                          <Bar type="monotone" dataKey="count" barSize={30} fill="#607d8b" />
+                          <Bar type="monotone" dataKey="count" barSize={30} fill="#717C89" />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
