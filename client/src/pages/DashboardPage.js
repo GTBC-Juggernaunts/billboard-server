@@ -2,6 +2,7 @@ import React from "react";
 import KPI from "../components/KPI/KPI"
 import './page.css'
 import API from "../utils/API";
+import {Treemap, ResponsiveContainer} from 'recharts';
 
 class DashboardPage extends React.Component {
   state={
@@ -74,33 +75,39 @@ class DashboardPage extends React.Component {
     return(
       <div className="mainContainer">
         <div className="wide-container">
+
           <div className="row">
-            <div className="kpiContainer">
+            <div className="dashboard-kpiContainer">
               <KPI
                 cardBackgroundColor={"white"}
                 cardTextcolor={"blue-grey-text text-darken-4"}
                 title={"Total Promotions"}
-                subtitle={"Active Records Only"}
                 kpi={this.state.promotionsData.length}
                 kpiColor={"deep-orange-text text-darken-2"}
+                isText={false}
               />
               <KPI
                 cardBackgroundColor={"white"}
                 cardTextcolor={"blue-grey-text text-darken-4"}
                 title={"Total Users"}
-                subtitle={"By unique username"}
                 kpi={this.state.usersData.length}
                 kpiColor={"cyan-text"}
+                isText={false}
               />
               <KPI
                 cardBackgroundColor={"white"}
                 cardTextColor={"blue-grey-text text-darken-4"}
                 title={"Promotions Redeemed"}
-                subtitle={"We have your personal data"}
                 kpi={this.state.redemptionsData.length}
                 kpiColor={"indigo-text"}
+                isText={false}
               />
             </div>
+          </div>
+          <div className="row welcome">
+            <h1>Welcome</h1>
+            <h1>to</h1>
+            <h1>Digital Billboards</h1>
           </div>
         </div>
       </div>

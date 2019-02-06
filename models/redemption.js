@@ -12,11 +12,13 @@ const RedemptionSchema = new Schema({
   },
   PromotionId: {
     type: Schema.Types.ObjectId,
-    ref: Promotion
+    ref: Promotion,
+    required: true,
   },
   UserId: {
     type: Schema.Types.ObjectId,
-    ref: User
+    ref: User,
+    required: true
   }
 });
 

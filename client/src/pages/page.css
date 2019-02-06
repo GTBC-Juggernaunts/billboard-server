@@ -9,6 +9,13 @@
   padding: 0 30px 0 30px;
 }
 
+.dashboard-kpiContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 20px 30px 0 30px;
+}
+
 .row {
   margin-bottom: 0;
 }
@@ -71,7 +78,13 @@ h5 {
   font-weight: 600;
 }
 
+h1 {
+  color: #9EB9B1;
+}
 
+.welcome {
+  margin-top: 135px;
+}
 
 .ReactTable {
   padding-top: 20px;

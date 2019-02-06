@@ -15,6 +15,7 @@ class UsersControlPage extends React.Component {
     topUserCount: 0,
     userDateData:[],
     categoryData: [],
+    redemptionCount: 0,
     Username: "",
     Name: "",
     Email: "",
@@ -58,6 +59,16 @@ class UsersControlPage extends React.Component {
           categoryData
         });
         console.log("category state", this.state)
+      })
+  };
+
+  getRedemptionsCount = () => {
+    API.getRedemptions()
+      .then(res => {
+        const redemptionCount = res.data.length
+        this.setState({
+          redemptionCount
+        })
       })
   };
 
@@ -113,6 +124,7 @@ class UsersControlPage extends React.Component {
   };
 
   reloadData = () => {
+    this.getRedemptionsCount();
     this.getUsers(this.findMostRedeemedUser);
     this.getUsersCountByPreference();
     this.getUserByCreationDate();
@@ -194,25 +206,26 @@ class UsersControlPage extends React.Component {
                 <KPI
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
+                  title="Avg Redemptions Per User"
+                  kpi={this.state.userData.length ? this.state.redemptionCount / this.state.userData.length : 0 }
+                  kpiColor="deep-orange-text text-darken-2"
+                  isText={false}
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
+                  title="Highest User"
+                  kpi={this.state.topUser}
+                  kpiColor="cyan-text"
+                  isText={true}
+                />
+                <KPI
+                  cardBackgroundColor="white"
+                  cardTextcolor="blue-grey-text text-darken-4"
                   title="Total Users"
                   kpi={this.state.userData.length}
-                  kpiColor="deep-orange-text text-darken-2"
-                />
-                <KPI
-                  cardBackgroundColor="white"
-                  cardTextcolor="blue-grey-text text-darken-4"
-                  title="Most Redeemed Promotions"
-                  kpi={this.state.topUserCount}
-                  subtitle={this.state.topUser}
-                  kpiColor="cyan-text"
-                />
-                <KPI
-                  cardBackgroundColor="white"
-                  cardTextcolor="blue-grey-text text-darken-4"
-                  title="Users in Top Preference"
-                  kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
-                  subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No user data"}
                   kpiColor="indigo-text"
+                  isText={false}
                 />
               </div>
               <div className="row">

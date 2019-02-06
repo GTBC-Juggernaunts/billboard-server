@@ -15,7 +15,6 @@ class PromotionsControlPage extends React.Component {
     categoryData:[],
     topPromo: "",
     topPromoCount: 0,
-    topUser: "",
     PromotionText: "",
     BeaconTag: "mint",
     PreferenceGroup: "",
@@ -27,6 +26,7 @@ class PromotionsControlPage extends React.Component {
     API.getRedemptionCountByPromo()
       .then(res => {
         if ( res.data[0]) {
+          console.log(res.data[0]);
           const topPromoId = res.data[0]._id;
           console.log("topPromoId", topPromoId);
           let topPromo = "";
@@ -48,6 +48,7 @@ class PromotionsControlPage extends React.Component {
         }
       });
   };
+
 
   getPromotionCountByPreference = () => {
     API.getPromotionCountByPreferenceGroup()
@@ -101,7 +102,7 @@ class PromotionsControlPage extends React.Component {
           promotionData
         });
         console.log("promotionData", this.state.promotionData);
-        callback()
+        callback();
       })
   };
 
@@ -183,25 +184,26 @@ class PromotionsControlPage extends React.Component {
                   <KPI
                     cardBackgroundColor="white"
                     cardTextcolor="blue-grey-text text-darken-4"
-                    title="Total Promotions"
-                    kpi={this.state.promotionData.length}
+                    title="Promotion Categories"
+                    kpi={this.state.categoryData.length}
                     kpiColor="deep-orange-text text-darken-2"
+                    isText={false}
                   />
                   <KPI
                     cardBackgroundColor="white"
                     cardTextcolor="blue-grey-text text-darken-4"
-                    title="Most Redeemed Promotion"
-                    kpi={this.state.topPromoCount}
-                    subtitle={this.state.topPromo}
+                    title="Top Promo"
+                    kpi={this.state.topPromo}
                     kpiColor="cyan-text"
+                    isText={true}
                   />
                   <KPI
                     cardBackgroundColor="white"
                     cardTextcolor="blue-grey-text text-darken-4"
                     title="Top Category by Promo Ct."
                     kpi={this.state.categoryData[0] ? this.state.categoryData[0].count : 0}
-                    subtitle={this.state.categoryData[0] ? this.state.categoryData[0].PreferenceGroup : "No promotions"}
                     kpiColor="indigo-text"
+                    isText={false}
                   />
                 </div>
                 <div className="row">

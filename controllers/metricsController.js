@@ -4,7 +4,7 @@ module.exports =  {
   getRedemptionCountByPromo: function(req, res) {
     models.Redemption
       .aggregate([
-        {"$group" : {_id:"$PromotionId", count:{$sum:1}}}
+        {"$group" : {_id: "$PromotionId", count:{$sum:1}}}
       ])
       .sort({count: -1})
       .then(dbMetric => {
@@ -72,5 +72,6 @@ module.exports =  {
         res.json(dbMetric)
       })
       .catch(err => res.status(422).json(err))
-  }
+  },
+
 };

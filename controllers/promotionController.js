@@ -53,12 +53,7 @@ module.exports =  {
       .then(dbPromo => res.json(dbPromo))
       .catch(err => res.status(422).json(err));
   },
-  clearRedemptions: function(req, res) {
-    models.Redemption
-      .remove({})
-      .then(()=>res.json({}))
-      .catch(err => res.status(422).json(err));
-  },
+
   findPromotionsByUser: function(req, res) {
     models.User
         .findOne({_id: req.body.UserId})

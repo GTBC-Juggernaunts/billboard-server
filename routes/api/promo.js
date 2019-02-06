@@ -14,8 +14,7 @@ router
   //To redeem, post body must contain the below format
   //{ PromotionId: <mongo promo _id>, UserId: <mongo user _id> }
   .get(promotionController.findAllRedemptions)
-  .post(promotionController.redeemPromotion)
-  .delete(promotionController.clearRedemptions);
+  .post(promotionController.redeemPromotion);
 
 
 router
