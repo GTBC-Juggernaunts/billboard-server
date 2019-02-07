@@ -64,7 +64,7 @@ module.exports =  {
               models.Promotion
                 .find({
                   _id : {$nin: CouponsRedeemed},
-                  BeaconTag : req.body.BeaconTag
+                  BeaconTag : {$in: req.body.BeaconTag}
                 })
                 .then(filteredPromos => {
                   res.json(filteredPromos)
