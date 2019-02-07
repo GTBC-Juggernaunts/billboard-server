@@ -207,7 +207,7 @@ class UsersControlPage extends React.Component {
                   cardBackgroundColor="white"
                   cardTextcolor="blue-grey-text text-darken-4"
                   title="Avg Redemptions Per User"
-                  kpi={this.state.userData.length ? this.state.redemptionCount / this.state.userData.length : 0 }
+                  kpi={this.state.userData.length ? Math.round(((this.state.redemptionCount / this.state.userData.length)*10))/10 : 0 }
                   kpiColor="deep-orange-text text-darken-2"
                   isText={false}
                 />
